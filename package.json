@@ -1,0 +1,47 @@
+{
+  "name": "swsscroll",
+  "version": "1.0.0",
+  "description": "Smooth scrolling fragment links script.",
+  "main": "src/index.js",
+  "config": {
+    "dist_dir": "dist",
+    "src_dir": "src",
+    "js_src": "src/swsscroll.js",
+    "js_out": "dist/swsscroll.min.js"
+  },
+  "scripts": {
+    "start": "npm run server & npm run watch",
+    "server": "browser-sync start --server $npm_package_config_dist_dir --files \"$npm_package_config_dist_dir/**/*\" --no-open",
+    "build": "npm run clean && npm run lint && npm run build:prod",
+    "build:dev": "NODE_ENV=development browserify --debug $npm_package_config_js_src -t babelify -o $npm_package_config_js_out",
+    "build:prod": "NODE_ENV=production browserify $npm_package_config_js_src -t babelify | uglifyjs -m -c --comments | insertcopy >$npm_package_config_js_out",
+    "clean": "rimraf '**/.DS_Store' & rimraf $npm_package_config_js_out",
+    "watch": "NODE_ENV=development watchify --debug -t babelify $npm_package_config_js_src -o $npm_package_config_js_out -v",
+    "lint": "eslint $npm_package_config_src_dir/js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/inotom/swsscroll.git"
+  },
+  "keywords": [],
+  "author": "iNo (http://www.serendip.ws/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/inotom/swsscroll/issues"
+  },
+  "homepage": "https://github.com/inotom/swsscroll#readme",
+  "devDependencies": {
+    "babel-core": "6.26.0",
+    "babel-eslint": "8.2.1",
+    "babel-preset-env": "1.6.1",
+    "babelify": "8.0.0",
+    "browser-sync": "2.23.5",
+    "browserify": "15.1.0",
+    "eslint": "4.15.0",
+    "insertcopy": "git+https://github.com/inotom/insertcopy.git#v1.0.0",
+    "rimraf": "2.6.2",
+    "uglify-js": "3.3.5",
+    "watchify": "3.9.0"
+  }
+}
